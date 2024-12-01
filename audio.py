@@ -11,8 +11,8 @@ def load_audio(uri: str) -> torch.Tensor:
     waveform, sample_rate = torchaudio.load(uri, normalize=True, channels_first=True)
     assert(sample_rate == 44100)
     # duplicate channel for mono
-    if waveform.shape[0] == 1:
-        waveform = waveform.repeat(2, 1)
+    # if waveform.shape[0] == 1:
+    #     waveform = waveform.repeat(2, 1)
     return waveform
     
 
@@ -24,7 +24,7 @@ def framify(x: torch.Tensor, frame_size: int) -> torch.Tensor:
     :return: torch.Tensor of shape (frames, features)
     """
     channels, time = x.shape
-    assert(channels == 2)
+    # assert(channels == 2)
 
     # slice (channels, time) -> (channels, frames, frame_size)
     frames = x.unfold(dimension=1, size=frame_size, step=frame_size)
